@@ -1,4 +1,4 @@
-# Operating Systems Project No.1 on schedulers
+# Operating Systems Project No.1: Schedulers and Interprocess Communication
 
 Client/Server communication reference from:
 https://docs.python.org/3/library/socketserver.html#socketserver-udpserver-example 

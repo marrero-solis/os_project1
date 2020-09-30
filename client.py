@@ -8,8 +8,8 @@ from random import randint
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_address = ('localhost', 10000)
 
-device_count = 10
-max_jobs = 10
+device_count = 4
+max_jobs = 4
 
 class edevice(Thread):
     def __init__(self, ID):
@@ -33,7 +33,7 @@ class edevice(Thread):
 def main():
     myDevices = [0] * device_count
 
-    # Create N threads to fill the buffer and start the threads
+    # Create device threads
     for i in range(device_count):
         myDevices[i] = edevice(i)
         myDevices[i].start()
@@ -41,7 +41,6 @@ def main():
     # Make the original thread wait for the created threads.
     for i in range(device_count):
         myDevices[i].join()
-
 
     # Close the socket
     sock.close()

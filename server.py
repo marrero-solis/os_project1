@@ -3,7 +3,7 @@ from threading import Thread, Lock, Semaphore
 import time
 from operator import itemgetter
 
-buffer_SIZE = 100
+buffer_SIZE = 16
 buffer = [] * buffer_SIZE
 mutex = Lock()
 empty = Semaphore(buffer_SIZE)
@@ -37,7 +37,7 @@ class Producer(Thread):
             buffer.append(buffer_message)
             print("appending message {}".format(buffer_message))
             print(buffer)
-            buffer.sort(key=itemgetter(1), reverse=True)  # Simulate SJF
+            buffer.sort(key=itemgetter(1))  # Simulate SJF
             print(buffer)
             mutex.release()
             # Exit Critical Region
@@ -56,7 +56,7 @@ class Consumer(Thread):
             # Enter critical Region
             mutex.acquire()
             print(buffer)
-            job = buffer.pop()
+            job = buffer.pop(0)
             print(buffer)
             mutex.release()
             # Exit Critical Region

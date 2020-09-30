@@ -8,7 +8,9 @@ from random import randint
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_address = ('localhost', 10000)
 
-max_jobs = 4
+device_count = 10
+max_jobs = 10
+
 class edevice(Thread):
     def __init__(self, ID):
         self.ID = ID
@@ -21,29 +23,27 @@ class edevice(Thread):
 
             message = "{}:{}".format(self.ID,job_time)
             # Send data
-            print("sending {}".format(message))
+            print("Client sending {}".format(message))
             sock.sendto(bytes(message, "utf-8"), server_address)
 
-            sleep_time = randint(1,5)
+            sleep_time = randint(1,4)
             time.sleep(sleep_time)
             print("Device {} slept for {} seconds".format(self.ID, sleep_time))
 
 def main():
-    device_amount = 3
-    myDevices = [0] * device_amount
+    myDevices = [0] * device_count
 
     # Create N threads to fill the buffer and start the threads
-    for i in range(device_amount):
+    for i in range(device_count):
         myDevices[i] = edevice(i)
         myDevices[i].start()
 
     # Make the original thread wait for the created threads.
-    for i in range(device_amount):
+    for i in range(device_count):
         myDevices[i].join()
 
 
-    ### From new source
-    print(sys.stderr, 'closing socket')
+    # Close the socket
     sock.close()
 
 if __name__ == "__main__":

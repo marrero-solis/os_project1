@@ -24,10 +24,10 @@ The configuration variables are set the following way:
       In other words, N = T*K
 
 To execute the server file from the command line, use:
-# python server.py <server address> <server port>
+$ python server.py <server address> <server port>
 
 To execute the client file from the command line, use:
-# python client.py <server address> <server port>
+$ python client.py <server address> <server port>
 
 
 This program was created using Python, version 3.7
